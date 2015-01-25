@@ -1,0 +1,9 @@
+---
+
+postgresql_locale: en_US.UTF-8
+postgresql_data: /var/lib/postgres/data
+postgresql_conf: '{{ postgresql_data }}/postgresql.conf'
+
+postgresql_initdb: initdb
+postgresql_user: postgres
+postgresql_group: postgres

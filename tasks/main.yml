@@ -1,0 +1,18 @@
+---
+- pacman: name=postgresql 
+
+- locale_gen: name={{ postgresql_locale }} state=present
+
+- file: 
+    path: '{{ postgresql_data }}'
+    state: directory
+    owner: '{{ postgresql_user }}'
+    group: '{{ postgresql_group }}'
+    mode: 0700
+
+- stat: path='{{ postgresql_conf }}'
+  register: postgresql_conf_stat
+
+- shell: "{{ postgresql_initdb }} --locale {{ postgresql_locale }} -D '{{ postgresql_data }}'"
+  sudo_user: '{{ postgresql_user }}'
+  when: not postgresql_conf_stat.stat.exists
